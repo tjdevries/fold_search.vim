@@ -25,9 +25,9 @@ function! fold_search#toggle_search(opts) abort
   " If off, turn on
   if b:foldsearch.active
     let &foldmethod = get(b:foldsearch, 'previous_foldmethod', s:DEFFOLDMETHOD)
+    let &foldexpr = get(b:foldsearch, 'previous_foldexpr', s:DEFFOLDEXPR)
     let &foldtext = get(b:foldsearch, 'previous_foldtext', s:DEFFOLDTEXT)
     let &foldlevel = get(b:foldsearch, 'previous_foldlevel', s:DEFFOLDLEVEL)
-    let &foldexpr = get(b:foldsearch, 'previous_foldexpre', s:DEFFOLDEXPR)
 
     " Remove autocommands so that we don't run them outside of fold search
     augroup FoldSearch
@@ -43,7 +43,8 @@ function! fold_search#toggle_search(opts) abort
     " TODO: Figure out why original had 'zE' here. It doesn't really make
     " sense to me. Seems to delete folds in the buffer that it has no reason
     " deleting
-    return ''
+    " TODO: Maybe use either zx or zX
+    return 'zX'
   else
     " Save off the old settings
     let b:foldsearch.previous_foldmethod = &foldmethod
@@ -56,6 +57,20 @@ function! fold_search#toggle_search(opts) abort
     let &foldtext = fold_search#conf#get('defaults', 'fold_text')
     let &foldexpr = fold_search#conf#get('defaults', 'fold_expr')
     let &foldlevel = 0
+
+    augroup FoldSearch
+      autocmd!
+      autocmd CursorMoved   <buffer>    let b:foldsearch.in_open_fold = foldlevel('.') && foldclosed('.') == -1
+      autocmd CursorMoved   <buffer>    let &foldexpr = &foldexpr
+      autocmd CursorMoved   <buffer>    let &foldlevel = 0
+      autocmd CursorMoved   <buffer>    call fold_search#reopen_fold()
+    augroup END
+
+    call fold_search#map#enable_fold_alternate()
+
+    let b:foldsearch.active = 1
+
+    return "\<C-L>"
   endif
 endfunction
 
@@ -80,4 +95,19 @@ function! fold_search#default_fold_text() abort " {{{
 endfunction " }}}
 function! fold_search#default_fold_noshow_text() abort " {{{
   return repeat('_', 350)
+endfunction " }}}
+function! fold_search#reopen_fold() abort " {{{
+  if !exists('b:foldsearch')
+    return
+  endif
+
+  if !has_key(b:foldsearch, 'in_open_fold')
+    return
+  endif
+
+
+  " Only do this when we'er in an open fold
+  if b:foldsearch.in_open_fold
+    normal! zo
+  endif
 endfunction " }}}

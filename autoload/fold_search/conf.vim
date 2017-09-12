@@ -4,7 +4,7 @@ let s:autoload_prefix = "fold_search#conf"
 
 " Set the name of name of your plugin.
 " Here is my best guess
-call conf#set_name(s:, 'fold_search.vim')
+call conf#set_name(s:, 'fold_search')
 
 call conf#add_area(s:, 'defaults')
 call conf#add_setting(s:, 'defaults', 'context', {

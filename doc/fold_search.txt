@@ -1,0 +1,102 @@
+
+================================================================================
+Configuration Options:                                     *fold_search-options*
+
+defaults..................................................*fold_search.defaults*
+
+
+defaults.context                                  *fold_search.defaults.context*
+
+  Type: |Number|
+  Default: `1`
+
+  Default number of lines to show when folding
+
+  To configure:
+    `call fold_search#conf#set("defaults", "context", <value>)`
+
+  To view:
+    `call fold_search#conf#get("defaults", "context")`
+
+
+defaults.fold_expr                              *fold_search.defaults.fold_expr*
+
+  Type: |String|
+  Default: `fold_search#default_fold_expr()`
+
+  &foldexpr value to set during active search
+
+  To configure:
+    `call fold_search#conf#set("defaults", "fold_expr", <value>)`
+
+  To view:
+    `call fold_search#conf#get("defaults", "fold_expr")`
+
+
+defaults.fold_text                              *fold_search.defaults.fold_text*
+
+  Type: |String|
+  Default: `fold_search#default_fold_text()`
+
+  &foldtext function to set during folding. Set to the function you want to call
+
+  To configure:
+    `call fold_search#conf#set("defaults", "fold_text", <value>)`
+
+  To view:
+    `call fold_search#conf#get("defaults", "fold_text")`
+
+settings..................................................*fold_search.settings*
+
+
+                               *fold_search.settings.smartcase_matching_enabled*
+settings.smartcase_matching_enabled
+
+  Type: |Bool|
+  Default: `v:true`
+
+  Enable smart case matching in the default fold_search items
+
+  To configure:
+    `call fold_search#conf#set("settings", "smartcase_matching_enabled", <value>)`
+
+  To view:
+    `call fold_search#conf#get("settings", "smartcase_matching_enabled")`
+
+mappings..................................................*fold_search.mappings*
+
+
+mappings.fold_search                          *fold_search.mappings.fold_search*
+
+  Type: |String|
+  Default: `zz`
+
+  Default mapping to toggle the search folding. Set to "" to disable mapping
+
+  Action:
+>
+       function <lambda>253(def, old, new, ...) closure
+    1  return dict.result(def, old, new)-
+       endfunction
+<
+
+  To configure:
+    `call fold_search#conf#set("mappings", "fold_search", <value>)`
+
+  To view:
+    `call fold_search#conf#get("mappings", "fold_search")`
+
+
+mappings.fold_alternate_key            *fold_search.mappings.fold_alternate_key*
+
+  Type: |String|
+  Default: `<CR>`
+
+  Key pattern to use for executing alternate folds while active. Set to "" to disable
+
+  To configure:
+    `call fold_search#conf#set("mappings", "fold_alternate_key", <value>)`
+
+  To view:
+    `call fold_search#conf#get("mappings", "fold_alternate_key")`
+
