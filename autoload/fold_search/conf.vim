@@ -6,27 +6,47 @@ let s:autoload_prefix = "fold_search#conf"
 " Here is my best guess
 call conf#set_name(s:, 'fold_search.vim')
 
-" hello {{{
-" }}}
-
 call conf#add_area(s:, 'defaults')
 call conf#add_setting(s:, 'defaults', 'context', {
-            \ 'default': 1,
-            \ 'type': v:t_number,
-            \ 'description': 'Default number of lines to show when folding',
-            \ })
+      \ 'default': 1,
+      \ 'type': v:t_number,
+      \ 'description': 'Default number of lines to show when folding',
+      \ })
 call conf#add_setting(s:, 'defaults', 'fold_text', {
-            \ 'default': 'visible',
-            \ 'type': v:t_string,
-            \ 'description': 'Fold styles',
-            \ })
+      \ 'default': 'fold_search#default_fold_text()',
+      \ 'type': v:t_string,
+      \ 'description': '&foldtext function to set during folding. Set to the function you want to call',
+      \ })
+call conf#add_setting(s:, 'defaults', 'fold_expr', {
+      \ 'default': 'fold_search#default_fold_expr()',
+      \ 'type': v:t_string,
+      \ 'description': '&foldexpr value to set during active search',
+      \ })
+
+call conf#add_area(s:, 'settings')
+call conf#add_setting(s:, 'settings', 'smartcase_matching_enabled', {
+      \ 'default': v:true,
+      \ 'type': v:t_bool,
+      \ 'description': 'Enable smart case matching in the default fold_search items',
+      \ })
 
 call conf#add_area(s:, 'mappings')
-call conf#add_setting(s:, 'mappings', 'special_fold_key', {
-            \ 'default': '<CR>',
-            \ 'type': v:t_string,
-            \ 'description': 'Key pattern to use for enabling special folds while folded. Set to "" to disable',
-            \ })
+call conf#add_setting(s:, 'mappings', 'fold_alternate_key', {
+      \ 'default': '<CR>',
+      \ 'type': v:t_string,
+      \ 'description': 'Key pattern to use for executing alternate folds while active. Set to "" to disable',
+      \ })
+call conf#add_setting(s:, 'mappings', 'fold_search', {
+      \ 'default': 'zz',
+      \ 'type': v:t_string,
+      \ 'description': 'Default mapping to toggle the search folding. Set to "" to disable mapping',
+      \ 'action': conf#actions#mapping({
+          \ 'rhs': 'fold_search#toggle_search({})',
+          \ 'mode': 'n',
+          \ 'expr': v:true,
+          \ 'silent': v:true,
+          \ }),
+      \ })
 
 
 ""
