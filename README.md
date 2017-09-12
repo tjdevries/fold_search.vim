@@ -25,4 +25,6 @@ As mentioned before, trying searching for something. If you want to see only the
 
 You'll then see something like this:
 
+![Example Fold](./media/ExampleFold.PNG)
+
 To leave this mode, type `zz` again!
