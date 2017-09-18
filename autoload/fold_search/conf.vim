@@ -1,10 +1,10 @@
 
 " Prefix to use for this autoload file
 let s:autoload_prefix = "fold_search#conf"
+let s:autoload_file = expand("<sfile>:p")
 
-" Set the name of name of your plugin.
-" Here is my best guess
 call conf#set_name(s:, 'fold_search')
+call conf#set_version(s:, [1, 1, 0])
 
 call conf#add_area(s:, 'defaults')
 call conf#add_setting(s:, 'defaults', 'context', {
@@ -86,9 +86,42 @@ endfunction
 
 
 ""
+" fold_search#conf#version
+" Get the version for this plugin
+" Returns a semver dict
+function! fold_search#conf#version() abort
+  return conf#get_version(s:)
+endfunction
+
+
+""
+" fold_search#conf#require
+" Require a version of this plugin.
+" Returns false if not a high enough version
+function! fold_search#conf#require(semver) abort
+  return conf#require_version(s:, a:semver)
+endfunction
+
+
+""
+" fold_search#conf#debug
+" Print a debug statement containing information about the plugin
+" and the versions of required plugins
+function! fold_search#conf#debug() abort
+  return conf#debug(s:)
+endfunction
+
+""
 " fold_search#conf#generate_docs
 " Returns a list of lines to be placed in your documentation
 " 0
 function! fold_search#conf#generate_docs() abort
   return conf#docs#generate(s:, s:autoload_prefix)
+endfunction
+
+""
+" fold_search#conf#insert_docs
+" Insert the generated docs under where you cursor is
+function! fold_search#conf#insert_docs() abort
+  return conf#docs#insert(s:, s:autoload_prefix)
 endfunction
