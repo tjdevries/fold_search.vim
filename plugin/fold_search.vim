@@ -14,9 +14,10 @@ if !s:has_standardvim
 endif
 
 if !conf#util#require_plugins('fold_search', {
-      \ 'conf': '0.9.0',
-      \ 'std': '1.0.0',
+      \ 'conf': {'func': 'conf#runtime#require', 'require': '0.9.0'},
+      \ 'std':  {'func': 'std#info#require', 'require': '1.0.0'},
       \ })
+  echoerr '[FOLD_SEARCH] Requirements not met. Check `:messages`'
   finish
 endif
 
