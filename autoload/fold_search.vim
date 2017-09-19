@@ -106,7 +106,7 @@ function! fold_search#reopen_fold() abort " {{{
   endif
 
 
-  " Only do this when we'er in an open fold
+  " Only do this when we're in an open fold
   if b:foldsearch.in_open_fold
     normal! zo
   endif
