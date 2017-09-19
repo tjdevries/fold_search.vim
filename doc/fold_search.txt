@@ -49,8 +49,7 @@ defaults.fold_text                              *fold_search.defaults.fold_text*
 settings..................................................*fold_search.settings*
 
 
-                               *fold_search.settings.smartcase_matching_enabled*
-settings.smartcase_matching_enabled
+settings.smartcase_matching_enabled*fold_search.settings.smartcase_matching_enabled*
 
   Type: |Bool|
   Default: `v:true`
@@ -75,7 +74,7 @@ mappings.fold_search                          *fold_search.mappings.fold_search*
 
   Action:
 >
-       function <lambda>253(def, old, new, ...) closure
+       function <lambda>21(def, old, new, ...) closure
     1  return dict.result(def, old, new)-
        endfunction
 <
@@ -100,3 +99,54 @@ mappings.fold_alternate_key            *fold_search.mappings.fold_alternate_key*
   To view:
     `call fold_search#conf#get("mappings", "fold_alternate_key")`
 
+
+================================================================================
+Configuration Functions:                                 *fold_search-functions*
+
+                                             *fold_search#conf#generate_docs(()*
+fold_search#conf#generate_docs()
+    Returns a list of lines to be placed in your documentation
+    Can use :call append(line("%"), func())
+
+                                                      *fold_search#conf#menu(()*
+fold_search#conf#menu()
+    Provide the user with an automatic "quickmenu"
+    See |conf.menu|
+
+                                                   *fold_search#conf#version(()*
+fold_search#conf#version()
+    Get the version for this plugin
+    Returns a semver dict
+
+                                               *fold_search#conf#insert_docs(()*
+fold_search#conf#insert_docs()
+    Insert the generated docs under where you cursor is
+
+                                                       *fold_search#conf#set(()*
+fold_search#conf#set(area, setting, value)
+    Set a "value" for the "area.setting"
+    See |conf.set_setting|
+
+                                                       *fold_search#conf#get(()*
+fold_search#conf#get(area, setting)
+    Get the "value" for the "area.setting"
+    See |conf.get_setting}
+
+                                                      *fold_search#conf#view(()*
+fold_search#conf#view()
+    View the current configuration dictionary.
+    Useful for debugging
+
+                                                     *fold_search#conf#debug(()*
+fold_search#conf#debug()
+    Print a debug statement containing information about the plugin
+    and the versions of required plugins
+
+                                                   *fold_search#conf#require(()*
+fold_search#conf#require(semver)
+    Require a version of this plugin.
+    Returns false if not a high enough version
+
+
+
+ vim:tw=78:ts=2:sts=2:sw=2:ft=help:norl:
